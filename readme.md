@@ -165,7 +165,7 @@ Dead letter queues could be used to isolate messages that can't be processed for
 
 In this section,
 
-- we will mimic message that has gone unprocessed (on the consumer side), and after its maximum receives, allow it to redrive from the source queue to the dead-letter queue.
+- we will mimic message that has gone unprocessed on the consumer side (ie. not deleted after recieves), and after its maximum receives, allow it to redrive from the source queue to the dead-letter queue.
 
 **Create a SQS queue to be used as the dead-letter queue**
 
@@ -183,11 +183,11 @@ In this section,
   - Message recieved by this Node.js module wouldn't be deleted and will be placed back to the queue after the visibility timeout duration,
   - When the approximate recieve count of the message is more than the maximum recieves, the message will be redrive to the dead-letter queue.
 - Based on the existing `recieveMessage` module from the previous section,
-  - Remove or comment out the call to the `deleteMessage` method (indicating message has been successfully processed by the consumer)
+  - Remove or comment out the call to the `deleteMessage` method
   - Speed up the process by recieving message with surprisingly small visibility timeout
     - When receiving messages, you can also set a special visibility timeout, `VisibilityTimeout` parameter (seconds), for the returned messages without changing the overall queue timeout.
   - Log the message handle and approximate recieve count
-    - The approximate recieve count is obtained by adding `ApproximateReceiveCount` to the list of `AttributeNames` in the request parameters object of recieve message API.
+    - The approximate recieve count is obtained by adding `ApproximateReceiveCount` to the list of `AttributeNames` in the request parameters object of the recieve message API.
     - For an instance, `console.log("Pass", receiptHandle, approximateReceiveCount)`
 
 **Ensure a test message is available in the source queue**
@@ -196,7 +196,7 @@ In this section,
 
 **Run the Node.js module and check the message count in DLQ**
 
-- Run the module by the number of 'maximum recieves' times (per message),
+- Run the module for the number of 'maximum recieves' times (per message),
 - In each execution, the console should log a unique message handle with its current approximate recieve count,
 - Once no message is returned (or when message's approximate recieve count > maximum recieves), all of the message should now be in the DLQ,
   - Check the messages count in the DLQ queue
@@ -289,12 +289,8 @@ Notes:
 
 <summary><b>See Spoilers</b></summary>
 
-<<<<<<< HEAD:readme.md
 ``` javascript
-=======
-```node
 
->>>>>>> 5aa7d421c84a78af0351ef90013ea314931d9a12:messaging-node/sqs.md
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region
