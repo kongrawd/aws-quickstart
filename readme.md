@@ -1,4 +1,4 @@
-# AWS Simple Queue Service (SQS) Hands On Lab
+# AWS SQS & SNS Hands On Lab
 
 ## Introduction
 
@@ -198,7 +198,7 @@ In this section,
 
 - Run the module for the number of 'maximum recieves' times (per message),
 - In each execution, the console should log a unique message handle with its current approximate recieve count,
-- Once no message is returned (or when message's approximate recieve count > maximum recieves), all of the message should now be in the DLQ,
+- Once no message is returned (or when message's approximate recieve count > maximum recieves), all of the messages should now be in the DLQ,
   - Check the messages count in the DLQ queue
     - AWS Console > SQS > The DLQ Queue > Details section > More > Messages available
 
@@ -499,7 +499,7 @@ Example Policy once added new statement
 }
 ```
 4. Push new message to the topic (Step 3: Publish a message to the topic)
-5. Check message inside the queue you subscibed.
+5. Check message inside the queue you subscribed.
 
 ## Additional Resources
 
